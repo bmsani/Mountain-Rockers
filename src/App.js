@@ -10,6 +10,8 @@ import Blog from './components/Blog/Blog';
 import Footer from './components/Footer/Footer';
 import Register from './components/Register/Register';
 import AddItems from './components/AddItems/AddItems';
+import RequireAuth from './components/RequireAuth/RequireAuth';
+// import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
   return (
@@ -18,13 +20,22 @@ function App() {
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/blog' element={<Blog></Blog>}></Route>
-        <Route path='/manageInventory' element={<ManageInventory></ManageInventory>}> </Route>
-        <Route path='/addItem' element={<AddItems></AddItems>}></Route>
+        <Route path='/manageInventory' element={
+          <RequireAuth>
+            <ManageInventory></ManageInventory>
+          </RequireAuth>
+        }> </Route>
+        <Route path='/addItem' element={
+          <RequireAuth>
+            <AddItems></AddItems>
+          </RequireAuth>
+        }></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
         <Route path='*' element={<NotFound></NotFound>}></Route>
       </Routes>
       <Footer></Footer>
+      {/* <ToastContainer /> */}
     </div>
   );
 }

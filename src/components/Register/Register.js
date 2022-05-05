@@ -3,6 +3,8 @@ import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import SocialLogin from '../SocialLogin/SocialLogin';
+import Swal from 'sweetalert2'
 
 
 const Register = () => {
@@ -12,7 +14,7 @@ const Register = () => {
         user,
         loading,
         error,
-      ] = useCreateUserWithEmailAndPassword(auth);
+      ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
 
       if(user){
           navigate('/')
@@ -25,6 +27,13 @@ const Register = () => {
 
         if(password === confirmPassword){
             createUserWithEmailAndPassword(email, password)
+        }
+        else{
+            Swal.fire(
+                "Password didn't match",
+                'Please type same password in confirm password',
+                'error'
+              )
         }
     }
     return (
@@ -48,6 +57,7 @@ const Register = () => {
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
+                <SocialLogin></SocialLogin>
             </Form>
         </div>
     );
