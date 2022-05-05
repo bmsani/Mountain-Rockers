@@ -1,59 +1,81 @@
+import { async } from '@firebase/util';
+import { Toast } from 'bootstrap';
 import cogoToast from 'cogo-toast';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useUpdatePassword } from 'react-firebase-hooks/auth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import auth from '../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Login = () => {
+    const [email, setEmail] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
+
+    const handleEmail = event => {
+        setEmail(event.target.value)
+    }
     const [
         signInWithEmailAndPassword,
         user,
         loading,
         error,
-      ] = useSignInWithEmailAndPassword(auth);
+    ] = useSignInWithEmailAndPassword(auth);
+    const [sendPasswordResetEmail, sending, resetError] = useSendPasswordResetEmail(auth);
 
-      
 
-      if(user){
-        cogoToast.success("Login Successful", {position: 'top-right', heading: 'Login'});
-        navigate(from, {replace: true})
-      }
 
-      if(loading){
-          cogoToast.loading("Please wait")
-      }
-      if(error){
-          cogoToast.error(error.message)
-          console.log(error.message);
-      }
+    if (user) {
+        cogoToast.success("Login Successful", { position: 'top-right', heading: 'Login' });
+        navigate(from, { replace: true })
+    }
 
-      const handleFromSubmit = event => {
+    if (loading) {
+        cogoToast.loading("Please wait")
+    }
+    if (error) {
+        cogoToast.error(error.message)
+    }
+
+    const handleFromSubmit = event => {
         event.preventDefault();
-        const email = event.target.email.value;
         const password = event.target.password.value;
 
         signInWithEmailAndPassword(email, password)
+    }
 
-    
-      } 
+    const handleReset = async () => {
+        if (email) {
+            await sendPasswordResetEmail(email);
+            cogoToast.success("Please check your inobox", { heading: "Email sent" });
+        }
+        else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please input your email first..',
+            })
+        }
+    }
 
     return (
         <div className='w-50 mx-auto'>
             <h1 className='text-center my-3'>Login</h1>
             <Form onSubmit={handleFromSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control type="email" name='email' placeholder="Enter email" />
+                    <Form.Control onBlur={handleEmail} type="email" name='email' placeholder="Enter email" required/>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control type="password" name='password' placeholder="Password" />
+                    <Form.Control autoCapitalize='off' type="password" name='password' placeholder="Password" required/>
                 </Form.Group>
-                <p className=''>Forgot your password? <button></button> </p>
+                <p>Forgot your password?
+                    <button className='btn btn-link' onClick={handleReset}> Reset password</button>
+                </p>
+
                 <p>New to Mountain Rockers? <Link to='/register'>Register Here</Link></p>
                 <Button variant="primary" type="submit">
                     Submit
