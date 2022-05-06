@@ -1,7 +1,6 @@
 
 const hikingGear = [
     {
-        id: 1,
         name: "Snow Boot",
         supplier: "addidas",
         quantity: 34,
@@ -10,7 +9,6 @@ const hikingGear = [
         description: 'Very comfortable light weight snow traking shoew'
     },
     {
-        id: 2,
         name: "Binocular",
         supplier: "Nike",
         quantity: 45,
@@ -19,7 +17,6 @@ const hikingGear = [
         description: 'Very comfortable light weight snow traking shoew'
     },
     {
-        id: 3,
         name: "Trekking Rope",
         supplier: "Mammut",
         quantity: 23,
@@ -28,7 +25,6 @@ const hikingGear = [
         description: 'Very comfortable light weight snow traking shoew'
     },
     {
-        id: 4,
         name: "Hiking watch",
         supplier: "Rolex",
         quantity: 90,
@@ -37,7 +33,6 @@ const hikingGear = [
         description: 'Very comfortable light weight snow traking shoew'
     },
     {
-        id: 5,
         name: "Grill stove",
         supplier: "Ikea",
         quantity: 76,
@@ -46,7 +41,6 @@ const hikingGear = [
         description: 'Very comfortable light weight snow traking shoew'
     },
     {
-        id: 6,
         name: "Hiking compass",
         supplier: "Rolex",
         quantity: 54,
@@ -55,7 +49,6 @@ const hikingGear = [
         description: 'Very comfortable light weight snow traking shoew'
     },
     {
-        id: 7,
         name: "Hiking Boot",
         supplier: "Woodland",
         quantity: 13,
