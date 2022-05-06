@@ -70,7 +70,7 @@ const Login = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control autoCapitalize='off' type="password" name='password' placeholder="Password" required/>
+                    <Form.Control autoComplete='off' type="password" name='password' placeholder="Password" required/>
                 </Form.Group>
                 <p>Forgot your password?
                     <button className='btn btn-link' onClick={handleReset}> Reset password</button>
