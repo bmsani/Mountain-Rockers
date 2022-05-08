@@ -12,7 +12,7 @@ const ProductDetails = () => {
 
     // Load single product data
     useEffect(() => {
-        const url = `http://localhost:5000/product/${id}`;
+        const url = `https://stormy-lake-73756.herokuapp.com/product/${id}`;
         fetch(url)
             .then(res => res.json())
             .then(data => setProduct(data));
@@ -28,7 +28,7 @@ const ProductDetails = () => {
         console.log(newQuantity);
         if (quantity > 0) {
             newQuantity = { quantity: quantity - 1 }
-            const url = `http://localhost:5000/product/${id}`;
+            const url = `https://stormy-lake-73756.herokuapp.com/product/${id}`;
             fetch(url, {
                 method: "PUT",
                 headers: {
@@ -50,29 +50,29 @@ const ProductDetails = () => {
 
     // update quantity as input value
     const { register, handleSubmit } = useForm();
-    const onSubmit = (data,event) => {
+    const onSubmit = (data, event) => {
         console.log(data.quantity)
-        const newQuantity = {quantity: quantity + parseInt(data.quantity)}
+        const newQuantity = { quantity: quantity + parseInt(data.quantity) }
         console.log(newQuantity);
-        
-        const url = `http://localhost:5000/product/${id}`;
-            fetch(url, {
-                method: "PUT",
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(newQuantity)
+
+        const url = `https://stormy-lake-73756.herokuapp.com/product/${id}`;
+        fetch(url, {
+            method: "PUT",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newQuantity)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (acknowledged === !true) {
+                    setAcknowledged(true);
+                }
+                else {
+                    setAcknowledged(false);
+                }
+                event.target.reset();
             })
-                .then(res => res.json())
-                .then(data => {
-                    if (acknowledged === !true) {
-                        setAcknowledged(true);
-                    }
-                    else {
-                        setAcknowledged(false);
-                    }
-                    event.target.reset();
-                })
 
     };
 
@@ -108,11 +108,11 @@ const ProductDetails = () => {
                 </tbody>
             </Table>
             <div className='d-flex align-items-center justify-content-evenly'>
-            <button onClick={() => handleDelivered(quantity)} className='btn btn-info fw-bold text-white w-25 py-3'>Delivered</button>
-            <form className='py-3 d-flex align-items-center' onSubmit={handleSubmit(onSubmit)}>
-                <input className='py-2 border border-dark rounded me-2' placeholder='input-quantity' type="number" {...register("quantity")} />
-                <input className='btn btn-info fw-bold py-2' type="submit" value='Restock the items' />
-            </form> 
+                <button onClick={() => handleDelivered(quantity)} className='btn btn-info fw-bold text-white w-25 py-3'>Delivered</button>
+                <form className='py-3 d-flex align-items-center' onSubmit={handleSubmit(onSubmit)}>
+                    <input className='py-2 border border-dark rounded me-2' placeholder='input-quantity' type="number" {...register("quantity")} />
+                    <input className='btn btn-info fw-bold py-2' type="submit" value='Restock the items' />
+                </form>
             </div>
             <button onClick={navigateToManageItem} className='btn btn-dark w-25 d-block mx-auto rounded-pill mt-5'>Manage Inventories</button>
 

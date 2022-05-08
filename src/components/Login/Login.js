@@ -46,18 +46,18 @@ const Login = () => {
         const password = event.target.password.value;
 
         await signInWithEmailAndPassword(email, password)
-        fetch('http://localhost:5000/login', {
+        fetch('https://stormy-lake-73756.herokuapp.com/login', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({email})
+            body: JSON.stringify({ email })
         })
-        .then(res => res.json())
-        .then(data => {
-            localStorage.setItem('accessToken', data.accessToken);
-            setToken(data.accessToken);
-        })
+            .then(res => res.json())
+            .then(data => {
+                localStorage.setItem('accessToken', data.accessToken);
+                setToken(data.accessToken);
+            })
     }
 
     const handleReset = async () => {
@@ -79,11 +79,11 @@ const Login = () => {
             <h1 className='text-center my-3'>Login</h1>
             <Form onSubmit={handleFromSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control onBlur={handleEmail} type="email" name='email' placeholder="Enter email" required/>
+                    <Form.Control onBlur={handleEmail} type="email" name='email' placeholder="Enter email" required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control autoComplete='off' type="password" name='password' placeholder="Password" required/>
+                    <Form.Control autoComplete='off' type="password" name='password' placeholder="Password" required />
                 </Form.Group>
                 <p>Forgot your password?
                     <button className='btn btn-link' onClick={handleReset}> Reset password</button>
