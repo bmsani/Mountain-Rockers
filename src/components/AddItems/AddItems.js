@@ -24,7 +24,7 @@ const AddItems = () => {
     };
     return (
         <div>
-            <h1 className='text-center'>Add items</h1>
+            <h1 className='text-center text-primary'>Add Items</h1>
             <div>
                 <div>
                     <form className='d-flex flex-column w-25 mx-auto d-block gap-3' onSubmit={handleSubmit(onSubmit)}>

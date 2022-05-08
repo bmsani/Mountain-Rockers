@@ -29,6 +29,7 @@ const Home = () => {
                 </div>
             </div>
             <div className='container p-0 mb-5'>
+                <h1 className='text-center text-info py-5'>Pick your necessary Gears</h1>
                 <div className='row m-0'>
                     {
                         products.map(product => <SingleItem product={product} key={product._id}></SingleItem>)

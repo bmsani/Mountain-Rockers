@@ -46,6 +46,7 @@ const MyItem = () => {
     }
     return (
         <div>
+            <h1 className='text-center text-info py-3'>My items</h1>
             <div style={{ marginBottom: "100px" }} className='container'>
                 <Table responsive='sm' striped bordered hover>
                     <thead>

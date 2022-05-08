@@ -22,10 +22,10 @@ const Header = () => {
                             {
                                 user ?
                                 <div className='d-flex'>
-                                <button onClick={() => signOut(auth)}>Sign Out</button>
                                 <Nav.Link as={Link} to='/myitem'>My Item</Nav.Link>
                                 <Nav.Link as={Link} to='/manageInventory'>Manage Items</Nav.Link>
                                 <Nav.Link as={Link} to='/addItem'>Add item</Nav.Link>
+                                <button className='btn btn-info fw-bold text-white' onClick={() => signOut(auth)}>Sign Out</button>
                                 </div>
                                 :
                                 <Nav.Link as={Link} to='/login'>Login</Nav.Link>
