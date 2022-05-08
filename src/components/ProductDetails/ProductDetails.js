@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 
 const ProductDetails = () => {
     const { id } = useParams();
     const [product, setProduct] = useState({});
     const [acknowledged, setAcknowledged] = useState(false);
-    console.log(acknowledged);
+    const navigate = useNavigate();
     let newQuantity
 
     // Load single product data
@@ -76,6 +76,11 @@ const ProductDetails = () => {
 
     };
 
+    // navigate to manage inventory
+    const navigateToManageItem = () => {
+        navigate('/manageInventory');
+    }
+
     return (
         <div className='container'>
             <Table responsive='sm' striped bordered hover>
@@ -105,10 +110,11 @@ const ProductDetails = () => {
             <div className='d-flex align-items-center justify-content-evenly'>
             <button onClick={() => handleDelivered(quantity)} className='btn btn-info fw-bold text-white w-25 py-3'>Delivered</button>
             <form className='py-3 d-flex align-items-center' onSubmit={handleSubmit(onSubmit)}>
-                <input className='py-2 border border-dark rounded me-2' type="number" {...register("quantity")} />
-                <input className='btn btn-info fw-bold py-2' type="submit" value='Add Quantity' />
+                <input className='py-2 border border-dark rounded me-2' placeholder='input-quantity' type="number" {...register("quantity")} />
+                <input className='btn btn-info fw-bold py-2' type="submit" value='Restock the items' />
             </form> 
             </div>
+            <button onClick={navigateToManageItem} className='btn btn-dark w-25 d-block mx-auto rounded-pill mt-5'>Manage Inventories</button>
 
         </div>
     );

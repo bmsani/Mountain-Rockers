@@ -11,8 +11,8 @@ import Footer from './components/Footer/Footer';
 import Register from './components/Register/Register';
 import AddItems from './components/AddItems/AddItems';
 import RequireAuth from './components/RequireAuth/RequireAuth';
-import SingleItem from './components/SingleItem/SingleItem';
 import ProductDetails from './components/ProductDetails/ProductDetails';
+import MyItem from './components/MyItem/MyItem';
 // import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
@@ -35,6 +35,11 @@ function App() {
         <Route path='inventory/:id' element={
           <RequireAuth>
             <ProductDetails></ProductDetails>
+          </RequireAuth>
+        }></Route>
+        <Route path='/myitem' element={
+          <RequireAuth>
+            <MyItem></MyItem>
           </RequireAuth>
         }></Route>
         <Route path='/login' element={<Login></Login>}></Route>
