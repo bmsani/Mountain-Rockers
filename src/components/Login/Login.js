@@ -11,6 +11,7 @@ import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Login = () => {
     const [email, setEmail] = useState('');
+    const [token, setToken] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
@@ -28,7 +29,7 @@ const Login = () => {
 
 
 
-    if (user) {
+    if (token) {
         cogoToast.success("Login Successful", { position: 'top-right', heading: 'Login' });
         navigate(from, { replace: true })
     }
@@ -40,11 +41,23 @@ const Login = () => {
         cogoToast.error(error.message)
     }
 
-    const handleFromSubmit = event => {
+    const handleFromSubmit = async event => {
         event.preventDefault();
         const password = event.target.password.value;
 
-        signInWithEmailAndPassword(email, password)
+        await signInWithEmailAndPassword(email, password)
+        fetch('http://localhost:5000/login', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({email})
+        })
+        .then(res => res.json())
+        .then(data => {
+            localStorage.setItem('accessToken', data.accessToken);
+            setToken(data.accessToken);
+        })
     }
 
     const handleReset = async () => {
