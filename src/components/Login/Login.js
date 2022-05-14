@@ -1,9 +1,7 @@
-import { async } from '@firebase/util';
-import { Toast } from 'bootstrap';
 import cogoToast from 'cogo-toast';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useUpdatePassword } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import auth from '../../firebase.init';

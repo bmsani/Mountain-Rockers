@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";
+import Swal from 'sweetalert2';
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -19,13 +20,10 @@ const ProductDetails = () => {
     }, [id, acknowledged])
 
     const { name, supplier, quantity, img, price, description } = product;
-    console.log(id);
 
 
     // Reduce Quantity by one 
-    const handleDelivered = quantity => {
-        console.log(quantity);
-        console.log(newQuantity);
+    const handleDelivered = () => {
         if (quantity > 0) {
             newQuantity = { quantity: quantity - 1 }
             const url = `https://stormy-lake-73756.herokuapp.com/product/${id}`;
@@ -45,6 +43,13 @@ const ProductDetails = () => {
                         setAcknowledged(false);
                     }
                 })
+        }
+        else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please input your email first..',
+            })
         }
     }
 
@@ -108,7 +113,7 @@ const ProductDetails = () => {
                 </tbody>
             </Table>
             <div className='d-flex align-items-center justify-content-evenly'>
-                <button onClick={() => handleDelivered(quantity)} className='btn btn-info fw-bold text-white w-25 py-3'>Delivered</button>
+                <button onClick={handleDelivered} className='btn btn-info fw-bold text-white w-25 py-3'>Delivered</button>
                 <form className='py-3 d-flex align-items-center' onSubmit={handleSubmit(onSubmit)}>
                     <input className='py-2 border border-dark rounded me-2' placeholder='input-quantity' type="number" {...register("quantity")} />
                     <input className='btn btn-info fw-bold py-2' type="submit" value='Restock the items' />
